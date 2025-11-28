@@ -35,139 +35,88 @@ export default function ContactPage() {
     }));
   };
 
-  const inputStyle = {
-    width: '100%',
-    padding: '14px 16px',
-    fontSize: '16px',
-    border: '1px solid #e2e8f0',
-    borderRadius: '8px',
-    backgroundColor: 'white',
-    outline: 'none',
-  };
-
-  const labelStyle = {
-    display: 'block',
-    fontSize: '14px',
-    fontWeight: 500 as const,
-    color: '#374151',
-    marginBottom: '8px',
-  };
-
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
+    <div className="min-h-screen bg-slate-50">
       <Navigation />
 
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '64px',
-          }}
-        >
+      <main className="mx-auto max-w-7xl px-4 py-12">
+        <div className="grid gap-16 md:grid-cols-2">
           {/* Contact Form */}
           <div>
-            <h1
-              style={{
-                fontSize: '36px',
-                fontWeight: 700,
-                color: '#0f172a',
-                marginBottom: '16px',
-              }}
-            >
+            <h1 className="mb-4 text-4xl font-bold text-slate-900">
               Get in Touch
             </h1>
-            <p
-              style={{
-                fontSize: '16px',
-                color: '#64748b',
-                marginBottom: '32px',
-              }}
-            >
+            <p className="mb-8 text-slate-500">
               Have questions or ready to book? Fill out the form and we&apos;ll get
               back to you within 24 hours.
             </p>
 
             {submitted ? (
-              <div
-                style={{
-                  backgroundColor: '#f0fdf4',
-                  border: '1px solid #bbf7d0',
-                  borderRadius: '12px',
-                  padding: '32px',
-                  textAlign: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '48px',
-                    marginBottom: '16px',
-                  }}
-                >
-                  ✓
-                </div>
-                <h3
-                  style={{
-                    fontSize: '20px',
-                    fontWeight: 600,
-                    color: '#166534',
-                    marginBottom: '8px',
-                  }}
-                >
+              <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
+                <div className="mb-4 text-5xl">✓</div>
+                <h3 className="mb-2 text-xl font-semibold text-green-800">
                   Message Sent!
                 </h3>
-                <p style={{ color: '#15803d' }}>
+                <p className="text-green-700">
                   Thanks for reaching out. We&apos;ll be in touch soon.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '20px' }}>
-                  <label style={labelStyle}>Name *</label>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Name *
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    style={inputStyle}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="Your name"
                   />
                 </div>
 
-                <div style={{ marginBottom: '20px' }}>
-                  <label style={labelStyle}>Email *</label>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Email *
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    style={inputStyle}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="your@email.com"
                   />
                 </div>
 
-                <div style={{ marginBottom: '20px' }}>
-                  <label style={labelStyle}>Phone</label>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    style={inputStyle}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="(555) 123-4567"
                   />
                 </div>
 
-                <div style={{ marginBottom: '20px' }}>
-                  <label style={labelStyle}>Event Type *</label>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Event Type *
+                  </label>
                   <select
                     name="eventType"
                     value={formData.eventType}
                     onChange={handleChange}
                     required
-                    style={inputStyle}
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   >
                     <option value="">Select an event type</option>
                     <option value="single">Single Game/Event</option>
@@ -178,15 +127,17 @@ export default function ContactPage() {
                   </select>
                 </div>
 
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={labelStyle}>Message *</label>
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Message *
+                  </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    style={{ ...inputStyle, resize: 'vertical' as const }}
+                    className="w-full resize-y rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="Tell us about your event, team, or any questions you have..."
                   />
                 </div>
@@ -194,17 +145,11 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  style={{
-                    width: '100%',
-                    padding: '16px 32px',
-                    backgroundColor: isSubmitting ? '#94a3b8' : '#2563eb',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  }}
+                  className={`w-full rounded-lg px-8 py-4 text-base font-semibold text-white transition-colors ${
+                    isSubmitting
+                      ? 'cursor-not-allowed bg-slate-400'
+                      : 'bg-blue-600 hover:bg-blue-700'
+                  }`}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
@@ -213,79 +158,32 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Info */}
-          <div>
-            <div
-              style={{
-                backgroundColor: 'white',
-                padding: '32px',
-                borderRadius: '16px',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                marginBottom: '24px',
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: '20px',
-                  fontWeight: 600,
-                  color: '#0f172a',
-                  marginBottom: '24px',
-                }}
-              >
+          <div className="space-y-6">
+            <div className="rounded-2xl bg-white p-8 shadow-sm">
+              <h2 className="mb-6 text-xl font-semibold text-slate-900">
                 Contact Information
               </h2>
-              <div style={{ marginBottom: '20px' }}>
-                <div
-                  style={{
-                    fontSize: '14px',
-                    color: '#64748b',
-                    marginBottom: '4px',
-                  }}
-                >
-                  Email
-                </div>
+              <div className="mb-5">
+                <div className="mb-1 text-sm text-slate-500">Email</div>
                 <a
                   href="mailto:info@epicmoments.photo"
-                  style={{
-                    fontSize: '16px',
-                    color: '#2563eb',
-                    textDecoration: 'none',
-                  }}
+                  className="text-base text-blue-600 no-underline hover:underline"
                 >
                   info@epicmoments.photo
                 </a>
               </div>
-              <div style={{ marginBottom: '20px' }}>
-                <div
-                  style={{
-                    fontSize: '14px',
-                    color: '#64748b',
-                    marginBottom: '4px',
-                  }}
-                >
-                  Phone
-                </div>
+              <div className="mb-5">
+                <div className="mb-1 text-sm text-slate-500">Phone</div>
                 <a
                   href="tel:+15551234567"
-                  style={{
-                    fontSize: '16px',
-                    color: '#0f172a',
-                    textDecoration: 'none',
-                  }}
+                  className="text-base text-slate-900 no-underline hover:underline"
                 >
                   (555) 123-4567
                 </a>
               </div>
               <div>
-                <div
-                  style={{
-                    fontSize: '14px',
-                    color: '#64748b',
-                    marginBottom: '4px',
-                  }}
-                >
-                  Hours
-                </div>
-                <div style={{ fontSize: '16px', color: '#0f172a' }}>
+                <div className="mb-1 text-sm text-slate-500">Hours</div>
+                <div className="text-base text-slate-900">
                   Mon-Fri: 9am - 6pm EST
                   <br />
                   Weekends: By appointment
@@ -293,68 +191,27 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div
-              style={{
-                backgroundColor: '#0f172a',
-                padding: '32px',
-                borderRadius: '16px',
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '18px',
-                  fontWeight: 600,
-                  color: 'white',
-                  marginBottom: '16px',
-                }}
-              >
+            <div className="rounded-2xl bg-slate-900 p-8">
+              <h3 className="mb-4 text-lg font-semibold text-white">
                 Quick Response Guarantee
               </h3>
-              <p
-                style={{
-                  fontSize: '14px',
-                  color: '#94a3b8',
-                  lineHeight: 1.6,
-                }}
-              >
+              <p className="text-sm leading-relaxed text-slate-400">
                 We understand time-sensitive event bookings. That&apos;s why we guarantee
                 a response within 24 hours on business days. For urgent inquiries, give
                 us a call!
               </p>
             </div>
 
-            <div
-              style={{
-                marginTop: '24px',
-                padding: '24px',
-                backgroundColor: '#f1f5f9',
-                borderRadius: '12px',
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#0f172a',
-                  marginBottom: '12px',
-                }}
-              >
+            <div className="rounded-xl bg-slate-100 p-6">
+              <h3 className="mb-3 text-base font-semibold text-slate-900">
                 Follow Us
               </h3>
-              <div style={{ display: 'flex', gap: '16px' }}>
+              <div className="flex gap-4">
                 {['Instagram', 'Facebook', 'Twitter'].map((social) => (
                   <a
                     key={social}
                     href="#"
-                    style={{
-                      padding: '8px 16px',
-                      backgroundColor: 'white',
-                      borderRadius: '6px',
-                      fontSize: '14px',
-                      color: '#475569',
-                      textDecoration: 'none',
-                      border: '1px solid #e2e8f0',
-                    }}
+                    className="rounded-md border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 no-underline transition-colors hover:bg-slate-50"
                   >
                     {social}
                   </a>

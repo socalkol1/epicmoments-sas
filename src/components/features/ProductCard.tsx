@@ -27,101 +27,46 @@ function formatPrice(cents: number): string {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <div
-      style={{
-        position: 'relative',
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-        border: product.popular ? '2px solid #2563eb' : '1px solid #e2e8f0',
-        transition: 'box-shadow 0.2s, transform 0.2s',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.1)';
-        e.currentTarget.style.transform = 'translateY(-4px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-        e.currentTarget.style.transform = 'translateY(0)';
-      }}
+      className={`relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+        product.popular ? 'border-2 border-blue-600' : 'border border-slate-200'
+      }`}
     >
       {/* Popular badge */}
       {product.popular && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            backgroundColor: '#2563eb',
-            color: 'white',
-            fontSize: '12px',
-            fontWeight: 600,
-            padding: '4px 12px',
-            borderRadius: '20px',
-            zIndex: 10,
-          }}
-        >
+        <div className="absolute right-3 top-3 z-10 rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
           Popular
         </div>
       )}
 
       {/* Image */}
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          aspectRatio: '16 / 10',
-          backgroundColor: '#f1f5f9',
-        }}
-      >
+      <div className="relative aspect-[16/10] w-full bg-slate-100">
         <Image
           src={product.image_url}
           alt={product.name}
           fill
-          style={{ objectFit: 'cover' }}
+          className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
       </div>
 
       {/* Content */}
-      <div style={{ padding: '24px' }}>
-        <h3
-          style={{
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#0f172a',
-            marginBottom: '8px',
-          }}
-        >
+      <div className="p-6">
+        <h3 className="mb-2 text-xl font-semibold text-slate-900">
           {product.name}
         </h3>
-        <p
-          style={{
-            fontSize: '14px',
-            color: '#64748b',
-            marginBottom: '16px',
-            lineHeight: 1.5,
-          }}
-        >
+        <p className="mb-4 text-sm leading-relaxed text-slate-600">
           {product.description}
         </p>
 
         {/* Features */}
         {product.features && product.features.length > 0 && (
-          <ul style={{ marginBottom: '20px' }}>
+          <ul className="mb-5 space-y-2">
             {product.features.map((feature, i) => (
               <li
                 key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '14px',
-                  color: '#475569',
-                  marginBottom: '8px',
-                }}
+                className="flex items-center gap-2 text-sm text-slate-700"
               >
-                <span style={{ color: '#22c55e' }}>✓</span>
+                <span className="text-green-500">✓</span>
                 {feature}
               </li>
             ))}
@@ -129,38 +74,13 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Price and CTA */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginTop: '16px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '28px',
-              fontWeight: 700,
-              color: '#0f172a',
-            }}
-          >
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-2xl font-bold text-slate-900">
             {formatPrice(product.price_cents)}
           </span>
           <Link
             href={`/checkout?product=${product.id}`}
-            style={{
-              display: 'inline-block',
-              backgroundColor: '#2563eb',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 600,
-              textDecoration: 'none',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#1d4ed8')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2563eb')}
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           >
             Buy Now
           </Link>

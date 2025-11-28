@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { Navigation } from '@/components/ui/Navigation';
 import { Footer } from '@/components/ui/Footer';
 import { ProductCard, Product } from '@/components/features/ProductCard';
@@ -78,95 +79,43 @@ const products: Product[] = [
 
 export default function ShopPage() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
+    <div className="min-h-screen bg-slate-50">
       <Navigation />
 
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
+      <main className="mx-auto max-w-7xl px-4 py-12">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h1
-            style={{
-              fontSize: '36px',
-              fontWeight: 700,
-              color: '#0f172a',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-slate-900">
             Photography Packages
           </h1>
-          <p
-            style={{
-              fontSize: '18px',
-              color: '#64748b',
-              maxWidth: '600px',
-              margin: '0 auto',
-            }}
-          >
+          <p className="mx-auto max-w-xl text-lg text-slate-500">
             Choose the perfect package for your needs. All packages include professional
             editing and color correction.
           </p>
         </div>
 
         {/* Products Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '24px',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
         {/* Custom Package CTA */}
-        <div
-          style={{
-            marginTop: '64px',
-            padding: '48px',
-            backgroundColor: '#0f172a',
-            borderRadius: '16px',
-            textAlign: 'center',
-          }}
-        >
-          <h2
-            style={{
-              fontSize: '28px',
-              fontWeight: 700,
-              color: 'white',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mt-16 rounded-2xl bg-slate-900 p-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-white">
             Need a Custom Package?
           </h2>
-          <p
-            style={{
-              fontSize: '16px',
-              color: '#94a3b8',
-              marginBottom: '24px',
-              maxWidth: '500px',
-              margin: '0 auto 24px',
-            }}
-          >
+          <p className="mx-auto mb-6 max-w-lg text-slate-400">
             Contact us for team packages, event coverage, or any special requirements.
             We&apos;ll create a package that fits your needs.
           </p>
-          <a
+          <Link
             href="/contact"
-            style={{
-              display: 'inline-block',
-              backgroundColor: 'white',
-              color: '#0f172a',
-              padding: '14px 32px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: 600,
-              textDecoration: 'none',
-            }}
+            className="inline-block rounded-lg bg-white px-8 py-4 text-base font-semibold text-slate-900 transition-colors hover:bg-slate-100"
           >
             Get in Touch
-          </a>
+          </Link>
         </div>
       </main>
 

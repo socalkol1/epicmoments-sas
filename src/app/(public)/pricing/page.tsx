@@ -75,139 +75,66 @@ const addons = [
 
 export default function PricingPage() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
+    <div className="min-h-screen bg-slate-50">
       <Navigation />
 
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
+      <main className="mx-auto max-w-7xl px-4 py-12">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h1
-            style={{
-              fontSize: '42px',
-              fontWeight: 700,
-              color: '#0f172a',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">
             Simple, Transparent Pricing
           </h1>
-          <p
-            style={{
-              fontSize: '18px',
-              color: '#64748b',
-              maxWidth: '600px',
-              margin: '0 auto',
-            }}
-          >
+          <p className="mx-auto max-w-xl text-lg text-slate-500">
             Choose the package that fits your needs. All packages include professional
             editing and a dedicated online gallery.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-            marginBottom: '64px',
-          }}
-        >
+        <div className="mb-16 grid gap-6 md:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              style={{
-                position: 'relative',
-                backgroundColor: 'white',
-                padding: '32px',
-                borderRadius: '16px',
-                boxShadow: plan.popular
-                  ? '0 20px 40px rgba(37, 99, 235, 0.2)'
-                  : '0 1px 3px rgba(0,0,0,0.1)',
-                border: plan.popular ? '2px solid #2563eb' : '1px solid #e2e8f0',
-                transform: plan.popular ? 'scale(1.05)' : 'none',
-              }}
+              className={`relative rounded-2xl bg-white p-8 ${
+                plan.popular
+                  ? 'scale-105 border-2 border-blue-600 shadow-xl shadow-blue-600/20'
+                  : 'border border-slate-200 shadow-sm'
+              }`}
             >
               {plan.popular && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '-12px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: '#2563eb',
-                    color: 'white',
-                    padding: '4px 16px',
-                    borderRadius: '20px',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                  }}
-                >
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-4 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </div>
               )}
-              <h3
-                style={{
-                  fontSize: '24px',
-                  fontWeight: 600,
-                  color: '#0f172a',
-                  marginBottom: '8px',
-                }}
-              >
+              <h3 className="mb-2 text-2xl font-semibold text-slate-900">
                 {plan.name}
               </h3>
-              <p
-                style={{
-                  fontSize: '14px',
-                  color: '#64748b',
-                  marginBottom: '24px',
-                }}
-              >
+              <p className="mb-6 text-sm text-slate-500">
                 {plan.description}
               </p>
-              <div style={{ marginBottom: '24px' }}>
-                <span
-                  style={{
-                    fontSize: '48px',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                  }}
-                >
+              <div className="mb-6">
+                <span className="text-5xl font-bold text-slate-900">
                   ${plan.price}
                 </span>
               </div>
-              <ul style={{ marginBottom: '32px' }}>
+              <ul className="mb-8 space-y-3">
                 {plan.features.map((feature) => (
                   <li
                     key={feature}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      fontSize: '14px',
-                      color: '#475569',
-                      marginBottom: '12px',
-                    }}
+                    className="flex items-center gap-3 text-sm text-slate-600"
                   >
-                    <span style={{ color: '#22c55e', fontWeight: 'bold' }}>✓</span>
+                    <span className="font-bold text-green-500">✓</span>
                     {feature}
                   </li>
                 ))}
               </ul>
               <Link
                 href="/contact"
-                style={{
-                  display: 'block',
-                  textAlign: 'center',
-                  backgroundColor: plan.popular ? '#2563eb' : 'white',
-                  color: plan.popular ? 'white' : '#2563eb',
-                  padding: '14px 24px',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  border: plan.popular ? 'none' : '2px solid #2563eb',
-                }}
+                className={`block rounded-lg py-3.5 text-center text-sm font-semibold transition-colors ${
+                  plan.popular
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'border-2 border-blue-600 bg-white text-blue-600 hover:bg-blue-50'
+                }`}
               >
                 {plan.cta}
               </Link>
@@ -216,62 +143,23 @@ export default function PricingPage() {
         </div>
 
         {/* Add-ons Section */}
-        <div style={{ marginBottom: '64px' }}>
-          <h2
-            style={{
-              fontSize: '28px',
-              fontWeight: 700,
-              color: '#0f172a',
-              textAlign: 'center',
-              marginBottom: '32px',
-            }}
-          >
+        <div className="mb-16">
+          <h2 className="mb-8 text-center text-3xl font-bold text-slate-900">
             Optional Add-ons
           </h2>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '16px',
-            }}
-          >
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {addons.map((addon) => (
               <div
                 key={addon.name}
-                style={{
-                  backgroundColor: 'white',
-                  padding: '24px',
-                  borderRadius: '12px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                  textAlign: 'center',
-                }}
+                className="rounded-xl bg-white p-6 text-center shadow-sm"
               >
-                <h4
-                  style={{
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#0f172a',
-                    marginBottom: '4px',
-                  }}
-                >
+                <h4 className="mb-1 text-base font-semibold text-slate-900">
                   {addon.name}
                 </h4>
-                <p
-                  style={{
-                    fontSize: '12px',
-                    color: '#64748b',
-                    marginBottom: '12px',
-                  }}
-                >
+                <p className="mb-3 text-xs text-slate-500">
                   {addon.description}
                 </p>
-                <span
-                  style={{
-                    fontSize: '24px',
-                    fontWeight: 700,
-                    color: '#2563eb',
-                  }}
-                >
+                <span className="text-2xl font-bold text-blue-600">
                   +${addon.price}
                 </span>
               </div>
@@ -280,48 +168,17 @@ export default function PricingPage() {
         </div>
 
         {/* FAQ Teaser */}
-        <div
-          style={{
-            backgroundColor: '#f1f5f9',
-            padding: '48px',
-            borderRadius: '16px',
-            textAlign: 'center',
-          }}
-        >
-          <h2
-            style={{
-              fontSize: '24px',
-              fontWeight: 700,
-              color: '#0f172a',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="rounded-2xl bg-slate-100 p-12 text-center">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">
             Have Questions?
           </h2>
-          <p
-            style={{
-              fontSize: '16px',
-              color: '#64748b',
-              marginBottom: '24px',
-              maxWidth: '500px',
-              margin: '0 auto 24px',
-            }}
-          >
+          <p className="mx-auto mb-6 max-w-lg text-slate-500">
             Not sure which package is right for you? We&apos;re happy to help you find
             the perfect fit for your team or event.
           </p>
           <Link
             href="/contact"
-            style={{
-              display: 'inline-block',
-              backgroundColor: '#0f172a',
-              color: 'white',
-              padding: '14px 32px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: 600,
-              textDecoration: 'none',
-            }}
+            className="inline-block rounded-lg bg-slate-900 px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-slate-800"
           >
             Contact Us
           </Link>

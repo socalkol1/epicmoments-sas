@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -21,6 +21,11 @@ interface LightboxProps {
   onNext: () => void;
 }
 
+// Use useSyncExternalStore for hydration-safe mounting detection
+const emptySubscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export function Lightbox({
   images,
   currentIndex,
@@ -29,11 +34,7 @@ export function Lightbox({
   onPrevious,
   onNext,
 }: LightboxProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -79,20 +80,7 @@ export function Lightbox({
   const lightboxContent = (
     <div
       onClick={onClose}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'rgba(0, 0, 0, 0.95)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 99999,
-      }}
+      className="fixed inset-0 z-[99999] flex h-screen w-screen items-center justify-center bg-black/95"
     >
       {/* Close button */}
       <button
@@ -100,17 +88,7 @@ export function Lightbox({
           e.stopPropagation();
           onClose();
         }}
-        style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          background: 'rgba(255,255,255,0.2)',
-          border: 'none',
-          borderRadius: '50%',
-          padding: 12,
-          cursor: 'pointer',
-          color: 'white',
-        }}
+        className="absolute right-5 top-5 cursor-pointer rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
         aria-label="Close lightbox"
       >
         <X size={24} />
@@ -123,18 +101,7 @@ export function Lightbox({
             e.stopPropagation();
             onPrevious();
           }}
-          style={{
-            position: 'absolute',
-            left: 20,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'rgba(255,255,255,0.2)',
-            border: 'none',
-            borderRadius: '50%',
-            padding: 12,
-            cursor: 'pointer',
-            color: 'white',
-          }}
+          className="absolute left-5 top-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
           aria-label="Previous image"
         >
           <ChevronLeft size={32} />
@@ -148,18 +115,7 @@ export function Lightbox({
             e.stopPropagation();
             onNext();
           }}
-          style={{
-            position: 'absolute',
-            right: 20,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'rgba(255,255,255,0.2)',
-            border: 'none',
-            borderRadius: '50%',
-            padding: 12,
-            cursor: 'pointer',
-            color: 'white',
-          }}
+          className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
           aria-label="Next image"
         >
           <ChevronRight size={32} />
@@ -173,25 +129,13 @@ export function Lightbox({
           alt={currentImage.alt}
           width={currentImage.width}
           height={currentImage.height}
-          style={{ maxHeight: '85vh', maxWidth: '90vw', objectFit: 'contain' }}
+          className="max-h-[85vh] max-w-[90vw] object-contain"
           priority
         />
       </div>
 
       {/* Image counter */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.7)',
-          color: 'white',
-          padding: '8px 16px',
-          borderRadius: 20,
-          fontSize: 14,
-        }}
-      >
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-4 py-2 text-sm text-white">
         {currentIndex + 1} / {images.length}
       </div>
     </div>

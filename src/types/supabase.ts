@@ -73,6 +73,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       profiles: {
         Row: {
@@ -108,6 +109,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       albums: {
         Row: {
@@ -155,6 +157,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       images: {
         Row: {
@@ -202,6 +205,7 @@ export type Database = {
           sort_order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       products: {
         Row: {
@@ -243,6 +247,7 @@ export type Database = {
           sort_order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       orders: {
         Row: {
@@ -287,6 +292,7 @@ export type Database = {
           fulfilled_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       events: {
         Row: {
@@ -316,6 +322,7 @@ export type Database = {
           sport?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
@@ -341,6 +348,7 @@ export type Database = {
       order_status: 'pending' | 'paid' | 'processing' | 'fulfilled' | 'refunded' | 'cancelled';
       product_type: 'package' | 'template' | 'print' | 'addon';
     };
+    CompositeTypes: Record<string, never>;
   };
 };
 

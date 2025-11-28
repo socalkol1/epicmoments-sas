@@ -149,6 +149,19 @@ NEXT_PUBLIC_APP_URL=
 
 ## Additional Instructions
 
+### Git Commit Guidelines
+When creating commits, use simple conventional commit messages without any AI attribution or signatures:
+```
+feat: Add user authentication flow
+fix: Resolve null pointer in profile page
+refactor: Extract validation logic to separate module
+```
+Do NOT include:
+- AI attribution lines (e.g., "Generated with...")
+- Co-authored-by lines referencing AI
+- Emojis in commit messages
+- Any mention of Claude, AI, or automated generation
+
 ### Workflow Enhancements
 - **Phased Prompts**: Use templates in `docs/PROMPTS.md` for "multi-tenant migration" or "performance audit" to guide iterative coding.
 - **Code Review Simulation**: After each phase, run all checks, diff against `docs/SCHEMA.md`, and self-audit for RLS/tenant_id.

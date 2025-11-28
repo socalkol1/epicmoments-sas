@@ -68,13 +68,7 @@ export function PortfolioGallery({ images, categories = [] }: PortfolioGalleryPr
       )}
 
       {/* Grid layout */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '16px',
-        }}
-      >
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredImages.map((image, index) => (
           <div key={image.id}>
             <GalleryImage

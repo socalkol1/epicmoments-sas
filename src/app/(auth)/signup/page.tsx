@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Camera, Mail, Building2, Link as LinkIcon, Loader2, Check, X } from 'lucide-react';
+import { Camera, Mail, Building2, Link as LinkIcon, Loader2, Check, X, User } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { signupSchema } from '@/lib/validations/auth';
 
@@ -18,6 +18,7 @@ function generateSlug(name: string): string {
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
   const [studioName, setStudioName] = useState('');
   const [slug, setSlug] = useState('');
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
@@ -73,7 +74,7 @@ export default function SignupPage() {
     setMessage(null);
     setErrors({});
 
-    const result = signupSchema.safeParse({ email, studioName, slug });
+    const result = signupSchema.safeParse({ email, fullName, studioName, slug });
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
@@ -100,6 +101,7 @@ export default function SignupPage() {
         options: {
           emailRedirectTo: `${window.location.origin}/api/auth/callback?next=/onboarding`,
           data: {
+            full_name: fullName,
             studio_name: studioName,
             slug: slug,
           },
@@ -114,6 +116,7 @@ export default function SignupPage() {
           text: 'Check your email to complete signup! Click the link to verify your account.'
         });
         setEmail('');
+        setFullName('');
         setStudioName('');
         setSlug('');
         setSlugManuallyEdited(false);
@@ -159,10 +162,36 @@ export default function SignupPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Full Name */}
+            <div>
+              <label htmlFor="fullName" className="mb-1.5 block text-sm font-medium text-slate-700">
+                Your name
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <input
+                  id="fullName"
+                  type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="John Smith"
+                  className={`w-full rounded-lg border py-2.5 pl-10 pr-4 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 ${
+                    errors.fullName
+                      ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+                      : 'border-slate-300 focus:border-blue-500 focus:ring-blue-500'
+                  }`}
+                  disabled={isLoading}
+                />
+              </div>
+              {errors.fullName && (
+                <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
+              )}
+            </div>
+
             {/* Studio Name */}
             <div>
               <label htmlFor="studioName" className="mb-1.5 block text-sm font-medium text-slate-700">
-                Studio name
+                Studio / Company name
               </label>
               <div className="relative">
                 <Building2 className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
