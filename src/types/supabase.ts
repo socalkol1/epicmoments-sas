@@ -174,6 +174,7 @@ export type Database = {
           is_portfolio: boolean;
           sort_order: number;
           created_at: string;
+          category: string | null;
         };
         Insert: {
           id?: string;
@@ -189,6 +190,7 @@ export type Database = {
           is_portfolio?: boolean;
           sort_order?: number;
           created_at?: string;
+          category?: string | null;
         };
         Update: {
           id?: string;
@@ -204,6 +206,7 @@ export type Database = {
           is_portfolio?: boolean;
           sort_order?: number;
           created_at?: string;
+          category?: string | null;
         };
         Relationships: [];
       };
@@ -220,6 +223,9 @@ export type Database = {
           is_active: boolean;
           sort_order: number;
           created_at: string;
+          features: string[] | null;
+          image_url: string | null;
+          is_popular: boolean;
         };
         Insert: {
           id?: string;
@@ -233,6 +239,9 @@ export type Database = {
           is_active?: boolean;
           sort_order?: number;
           created_at?: string;
+          features?: string[] | null;
+          image_url?: string | null;
+          is_popular?: boolean;
         };
         Update: {
           id?: string;
@@ -246,6 +255,9 @@ export type Database = {
           is_active?: boolean;
           sort_order?: number;
           created_at?: string;
+          features?: string[] | null;
+          image_url?: string | null;
+          is_popular?: boolean;
         };
         Relationships: [];
       };
