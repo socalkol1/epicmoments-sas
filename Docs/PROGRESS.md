@@ -4,11 +4,11 @@
 
 ## Current Status
 
-**Phase:** 3 - E-Commerce (COMPLETE)
-**Task:** Ready for Phase 4
+**Phase:** 4 - Client Portal (COMPLETE)
+**Task:** Ready for Phase 5
 **Branch:** `main`
 **Repo:** https://github.com/socalkol1/epicmoments-sas
-**Last Commit:** Phase 2 complete
+**Last Commit:** Phase 4 complete
 
 ---
 
@@ -156,9 +156,48 @@
 ---
 
 ## Phase 4: Client Portal (Albums, Downloads)
-- [ ] Task 4.1: Portal Dashboard
-- [ ] Task 4.2: Album Viewer
-- [ ] Task 4.3: Secure Downloads
+
+**Goal:** Public album sharing with secure link access (no login required for clients).
+
+### Task 4.1: Public Album Viewer
+- [x] Add share_token, is_public, password_hash, expires_at columns to albums table
+- [x] Create migration with RLS policies for public album access
+- [x] Create `/album/[token]` route for public album viewing
+- [x] Display album header with title, description, photo count, date
+- [x] Show tenant branding (logo, name)
+- [x] Handle expired albums gracefully
+- [x] Create not-found page for invalid tokens
+
+**Status:** Complete
+
+### Task 4.2: Album Image Gallery with Lightbox
+- [x] Create AlbumGallery client component
+- [x] Masonry grid layout for thumbnails
+- [x] Full-screen lightbox with keyboard navigation (Escape, Arrow keys)
+- [x] Image counter and navigation buttons
+- [x] Zoom hover effect on thumbnails
+- [x] Loading states for images
+
+**Status:** Complete
+
+### Task 4.3: Optional Client Portal (Login)
+- [x] Portal dashboard shows albums assigned to logged-in user
+- [x] Albums link to public share URLs (no separate portal album viewer needed)
+- [x] Order history display with status badges
+- [x] Stats cards (album count, order count, ready to view)
+
+**Status:** Complete
+
+### Task 4.4: Secure Downloads
+- [x] Create `/api/download` route with album token verification
+- [x] Verify album is public, not expired, and in ready/delivered status
+- [x] Single image download functionality
+- [x] Download button in lightbox view
+- [ ] Bulk download (zip) - deferred to Phase 6
+
+**Status:** Complete (bulk download deferred)
+
+**Phase 4 Status: COMPLETE**
 
 ---
 
@@ -248,6 +287,25 @@
 - Success and cancel pages render correctly
 
 **Phase 3 Complete!**
+
+### 2025-11-28 - Session 5
+**Completed:**
+- Clarified architecture: albums accessed via secret links (no login required)
+- Added share_token, is_public, password_hash, expires_at to albums table
+- Created migration with public RLS policies for album/image access
+- Built public album viewer at `/album/[token]`
+- Created AlbumGallery component with masonry grid and lightbox
+- Keyboard navigation (Escape, Arrow keys) in lightbox
+- Created `/api/download` route for secure downloads
+- Updated portal to link to public album URLs
+- Created not-found page for invalid album tokens
+
+**Key Architecture Decision:**
+- Clients access albums via unguessable share links (security through obscurity)
+- No login required to view albums - just need the link
+- Optional client portal for order history (requires login)
+
+**Phase 4 Complete!**
 
 ---
 

@@ -10,6 +10,7 @@ Multi-tenant SaaS platform for sports photographers. Photographers sign up as te
 ### Always Do
 - Plan before coding (see docs/METHODOLOGY.md)
 - Test after EVERY step before proceeding
+- **Mark tasks complete in `Docs/PROGRESS.md`** - After completing and testing each task, immediately update PROGRESS.md by checking off `[x]` the completed items and adding session log entries
 - Validate all inputs with Zod schemas (`lib/validations/`)
 - Include `tenant_id` in all business table queries
 - Use Server Components by default; extract interactive elements (e.g., photo zoom) to Client Components with `'use client'`

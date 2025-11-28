@@ -126,6 +126,10 @@ export type Database = {
           delivered_at: string | null;
           created_at: string;
           updated_at: string;
+          share_token: string;
+          is_public: boolean;
+          password_hash: string | null;
+          expires_at: string | null;
         };
         Insert: {
           id?: string;
@@ -141,6 +145,10 @@ export type Database = {
           delivered_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          share_token?: string;
+          is_public?: boolean;
+          password_hash?: string | null;
+          expires_at?: string | null;
         };
         Update: {
           id?: string;
@@ -156,6 +164,10 @@ export type Database = {
           delivered_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          share_token?: string;
+          is_public?: boolean;
+          password_hash?: string | null;
+          expires_at?: string | null;
         };
         Relationships: [];
       };
