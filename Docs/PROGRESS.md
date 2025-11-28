@@ -7,7 +7,8 @@
 **Phase:** 1 - Foundation (COMPLETE)
 **Task:** Ready for Phase 2
 **Branch:** `main`
-**Last Commit:** Initial Phase 1 - Auth complete
+**Repo:** https://github.com/socalkol1/epicmoments-sas
+**Last Commit:** fe2f71c - Phase 1 complete
 
 ---
 
@@ -167,6 +168,15 @@
 - Google OAuth redirect URI: https://trcekolsevdlchtgaval.supabase.co/auth/v1/callback
 
 **Phase 1 Complete!**
+
+---
+
+## Workflow
+
+After completing each phase:
+1. Update PROGRESS.md with completed tasks
+2. Run `git add -A && git commit -m "feat: <description>"`
+3. Push to GitHub: `git push origin main`
 
 ---
 
