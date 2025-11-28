@@ -15,7 +15,7 @@ export default async function PortalPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .single() as { data: { full_name: string | null; role: string } | null };
 
   return (
     <div className="min-h-screen bg-slate-50">
