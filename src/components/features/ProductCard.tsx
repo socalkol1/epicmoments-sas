@@ -1,7 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
 
 export interface Product {
   id: string;
@@ -25,6 +26,36 @@ function formatPrice(cents: number): string {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: product.id,
+          productName: product.name,
+          productDescription: product.description,
+          priceInCents: product.price_cents,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL returned');
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div
       className={`relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
@@ -78,12 +109,20 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-2xl font-bold text-slate-900">
             {formatPrice(product.price_cents)}
           </span>
-          <Link
-            href={`/checkout?product=${product.id}`}
-            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+          <button
+            onClick={handleCheckout}
+            disabled={isLoading}
+            className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Buy Now
-          </Link>
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              'Buy Now'
+            )}
+          </button>
         </div>
       </div>
     </div>

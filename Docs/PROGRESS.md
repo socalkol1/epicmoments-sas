@@ -4,8 +4,8 @@
 
 ## Current Status
 
-**Phase:** 2 - Public Site (COMPLETE)
-**Task:** Ready for Phase 3
+**Phase:** 3 - E-Commerce (COMPLETE)
+**Task:** Ready for Phase 4
 **Branch:** `main`
 **Repo:** https://github.com/socalkol1/epicmoments-sas
 **Last Commit:** Phase 2 complete
@@ -126,9 +126,32 @@
 ---
 
 ## Phase 3: E-Commerce (Stripe Checkout)
-- [ ] Task 3.1: Stripe Integration
-- [ ] Task 3.2: Checkout Flow
-- [ ] Task 3.3: Order Management (Admin)
+
+**Goal:** Working payment flow for product purchases.
+
+### Task 3.1: Stripe Integration
+- [x] Configure Stripe API keys in .env.local
+- [x] Create Stripe client (`lib/stripe/client.ts`)
+- [x] Create checkout helper (`lib/stripe/checkout.ts`)
+
+**Status:** Complete
+
+### Task 3.2: Checkout Flow
+- [x] Create checkout API route (`/api/checkout`)
+- [x] Update ProductCard with checkout button
+- [x] Create success page (`/checkout/success`)
+- [x] Create cancel page (`/checkout/cancel`)
+
+**Status:** Complete
+
+### Task 3.3: Order Management
+- [x] Create Stripe webhook handler (`/api/webhooks/stripe`)
+- [x] Handle checkout.session.completed event
+- [x] Handle payment_intent.payment_failed event
+
+**Status:** Complete (basic - full order DB integration in Phase 5)
+
+**Phase 3 Status: COMPLETE**
 
 ---
 
@@ -210,6 +233,21 @@
 - Tenant-specific data-driven pages will come in Phase 7 (Multi-Tenancy)
 
 **Phase 2 Complete!**
+
+### 2025-11-28 - Session 4
+**Completed:**
+- Configured Stripe API keys (test mode)
+- Created Stripe client and checkout helpers
+- Created checkout API route
+- Updated ProductCard to trigger Stripe checkout
+- Created success/cancel pages
+- Created Stripe webhook handler
+
+**Tested:**
+- Checkout API returns valid Stripe session URL
+- Success and cancel pages render correctly
+
+**Phase 3 Complete!**
 
 ---
 
