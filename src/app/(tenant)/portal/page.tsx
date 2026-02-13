@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Camera, LogOut, User, Images, ShoppingBag, Calendar, ChevronRight } from 'lucide-react';
-import type { Album, Order, Product } from '@/types/supabase';
+import { TagBadge } from '@/components/features/TagBadge';
+import type { Album, Order, Product, Tag } from '@/types/supabase';
 
 export default async function PortalPage() {
   const supabase = await createClient();
@@ -42,6 +43,37 @@ export default async function PortalPage() {
     .eq('client_id', user.id)
     .order('created_at', { ascending: false })
     .limit(6) as { data: Album[] | null };
+
+  // Fetch tags for client's albums
+  const albumIds = (albums ?? []).map((a) => a.id);
+  const albumTagsMap = new Map<string, Tag[]>();
+  if (albumIds.length > 0 && profile?.tenant_id) {
+    const { data: albumTagRelations } = await supabase
+      .from('album_tags')
+      .select('album_id, tag_id')
+      .eq('tenant_id', profile.tenant_id)
+      .in('album_id', albumIds);
+
+    if (albumTagRelations && albumTagRelations.length > 0) {
+      const tagIds = [...new Set(albumTagRelations.map((r) => r.tag_id))];
+      const { data: tags } = await supabase
+        .from('tags')
+        .select('*')
+        .in('id', tagIds);
+
+      if (tags) {
+        const tagLookup = new Map(tags.map((t) => [t.id, t]));
+        for (const rel of albumTagRelations) {
+          const tag = tagLookup.get(rel.tag_id);
+          if (tag) {
+            const existing = albumTagsMap.get(rel.album_id) ?? [];
+            existing.push(tag);
+            albumTagsMap.set(rel.album_id, existing);
+          }
+        }
+      }
+    }
+  }
 
   // Fetch client's orders with product info
   const { data: orders } = await supabase
@@ -208,6 +240,17 @@ export default async function PortalPage() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-900">{album.title}</h3>
+                    {(albumTagsMap.get(album.id) ?? []).length > 0 && (
+                      <div className="mt-1.5 flex flex-wrap gap-1">
+                        {(albumTagsMap.get(album.id) ?? []).map((tag) => (
+                          <TagBadge
+                            key={tag.id}
+                            name={tag.name}
+                            color={tag.color}
+                          />
+                        ))}
+                      </div>
+                    )}
                     <div className="mt-2 flex items-center justify-between">
                       <span className="text-sm text-slate-500">
                         {album.image_count} photos

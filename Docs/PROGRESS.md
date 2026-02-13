@@ -202,10 +202,48 @@
 ---
 
 ## Phase 5: Admin Dashboard (CRM, Management)
-- [ ] Task 5.1: Dashboard Overview
-- [ ] Task 5.2: Client Management
-- [ ] Task 5.3: Album Management
-- [ ] Task 5.4: Order Fulfillment
+
+### Task 5.0: Tags System
+- [x] Database migration for tags, album_tags, profile_tags tables with RLS
+- [x] TypeScript types for Tag, AlbumTag, ProfileTag
+- [x] Zod validation schemas for tag creation/search
+- [x] Server actions: searchTags, createTag, addTag/removeTag for albums and profiles
+- [x] TagBadge component (colored pill, clickable variant)
+- [x] TagInput component (combobox with autocomplete, inline create)
+- [x] TagFilter component (multi-select filter bar)
+- [x] Portal updated to show tags on album cards (read-only)
+
+**Status:** Complete
+
+### Task 5.1: Dashboard Overview
+- [x] Admin layout with sidebar navigation
+- [x] Dashboard page with stats cards (albums, clients, orders)
+- [ ] Recent activity feed
+- [ ] Quick actions
+
+**Status:** Partial
+
+### Task 5.2: Client Management
+- [x] Client list page with search and tag filtering
+- [x] Inline tag editing on client rows
+- [x] Album count per client
+- [ ] Client detail/edit page
+- [ ] Create client form
+
+**Status:** Partial
+
+### Task 5.3: Album Management
+- [x] Album list page with search, status, and tag filtering
+- [x] Inline tag editing on album rows
+- [ ] Album detail/edit page
+- [ ] Create album form
+- [ ] Image upload management
+
+**Status:** Partial
+
+### Task 5.4: Order Fulfillment
+- [ ] Order list with status management
+- [ ] Order detail view
 
 ---
 
@@ -332,4 +370,23 @@ After completing each phase:
 
 ---
 
-*Last updated: 2025-11-28*
+### 2026-02-07 - Session 6
+**Completed:**
+- Tags system: database migration (tags, album_tags, profile_tags) with RLS policies
+- TypeScript types and Zod validation schemas for tags
+- Server actions for tag CRUD (search, create, add/remove for albums and profiles)
+- Three reusable tag components: TagBadge, TagInput, TagFilter
+- Admin layout with sidebar navigation (responsive)
+- Admin dashboard with stats overview
+- Admin albums page with search, status filter, tag filter, inline tag editing
+- Admin clients page with search, tag filter, inline tag editing, album counts
+- Portal updated to display tags on album cards (read-only)
+- All checks passing: typecheck, lint, build
+
+**Architecture Decisions:**
+- Tags are free-form per tenant with autocomplete (no predefined lists)
+- Many-to-many via junction tables (album_tags, profile_tags)
+- Tags scoped to tenant via tenant_id + unique constraint on (tenant_id, name)
+- Inline tag editing on list pages for fast workflow
+
+*Last updated: 2026-02-07*

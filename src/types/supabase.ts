@@ -348,6 +348,75 @@ export type Database = {
         };
         Relationships: [];
       };
+      tags: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          name: string;
+          color: string;
+          description: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          name: string;
+          color?: string;
+          description?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          name?: string;
+          color?: string;
+          description?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      album_tags: {
+        Row: {
+          album_id: string;
+          tag_id: string;
+          tenant_id: string;
+          created_at: string;
+        };
+        Insert: {
+          album_id: string;
+          tag_id: string;
+          tenant_id: string;
+          created_at?: string;
+        };
+        Update: {
+          album_id?: string;
+          tag_id?: string;
+          tenant_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      profile_tags: {
+        Row: {
+          profile_id: string;
+          tag_id: string;
+          tenant_id: string;
+          created_at: string;
+        };
+        Insert: {
+          profile_id: string;
+          tag_id: string;
+          tenant_id: string;
+          created_at?: string;
+        };
+        Update: {
+          profile_id?: string;
+          tag_id?: string;
+          tenant_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -394,6 +463,9 @@ export type Image = Tables<'images'>;
 export type Product = Tables<'products'>;
 export type Order = Tables<'orders'>;
 export type Event = Tables<'events'>;
+export type Tag = Tables<'tags'>;
+export type AlbumTag = Tables<'album_tags'>;
+export type ProfileTag = Tables<'profile_tags'>;
 
 export type UserRole = Enums<'user_role'>;
 export type SubscriptionPlan = Enums<'subscription_plan'>;
